@@ -41,7 +41,7 @@ inputs:
     description: 'Backup filename prefix'
     default: ''
     required: false
-  BACKUP_PREFIX:
+  BACKUP_SUFFIX:
     description: 'Backup filename suffix'
     default: ''
     required: false
