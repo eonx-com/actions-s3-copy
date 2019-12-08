@@ -50,10 +50,10 @@ class S3:
                         # If this does not generate an exception- the file already exists
                         original_file = {
                             'Bucket': destination['bucket'],
-                            'Key': source_filename
+                            'Key': destination_filename
                         }
-                        backup_filename = '{source_filename}.{timestamp}'.format(
-                            source_filename=source_filename,
+                        backup_filename = '{destination_filename}.{timestamp}'.format(
+                            destination_filename=destination_filename,
                             timestamp=datetime.utcnow().timestamp()
                         )
                         print('Backing Up Existing File...')
