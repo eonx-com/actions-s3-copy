@@ -7,6 +7,8 @@ DESTINATION_PREFIX=${3}
 DESTINATION_SUFFIX=${4}
 DESTINATION_BUCKET=${5}
 BACKUP_EXISTING=${6}
+BACKUP_PREFIX=${7}
+BACKUP_SUFFIX=${8}
 
 echo "Source Prefix: ${SOURCE_PREFIX}"
 echo "Source Suffix: ${SOURCE_SUFFIX}"
@@ -14,6 +16,8 @@ echo "Destination Prefix: ${DESTINATION_PREFIX}"
 echo "Destination Suffix: ${DESTINATION_SUFFIX}"
 echo "Destination Bucket: ${DESTINATION_BUCKET}"
 echo "Backup Existing Files: ${BACKUP_EXISTING}"
+echo "Backup File Prefix: ${BACKUP_PREFIX}"
+echo "Backup File Suffix: ${BACKUP_SUFFIX}"
 
 # Setup Python
 cd /opt/s3-copy/
@@ -26,4 +30,6 @@ python s3-copy.py \
   "${DESTINATION_PREFIX}" \
   "${DESTINATION_SUFFIX}" \
   "${DESTINATION_BUCKET}" \
-  "${BACKUP_EXISTING}"
+  "${BACKUP_EXISTING}" \
+  "${BACKUP_PREFIX}" \
+  "${BACKUP_SUFFIX}" \

@@ -20,7 +20,7 @@ class S3:
         return S3.__s3_client__
 
     @staticmethod
-    def upload(source, destination, backup=True):
+    def upload(source, destination, backup):
         """
         Upload local files to S3 bucket
         """
@@ -44,7 +44,7 @@ class S3:
                 print('Destination Filename: {destination_filename}'.format(destination_filename=destination_filename))
 
                 # If backup is enabled check if file exists
-                if backup is True:
+                if backup['enabled'] is True:
                     try:
                         S3.__client__().head_object(Bucket=destination['bucket'], Key=destination_filename)
                         # If this does not generate an exception- the file already exists
@@ -53,9 +53,10 @@ class S3:
                             'Key': destination_filename
                         }
 
-                        backup_filename = '{destination_filename}{destination_suffix}.{timestamp}'.format(
-                            destination_filename=destination_filename,
-                            destination_suffix=destination['suffix'],
+                        backup_filename = '{backup_prefix}{filename}{backup_suffix}.{timestamp}'.format(
+                            backup_prefix=backup['prefix'],
+                            backup_suffix=backup['suffix'],
+                            filename=os.path.basename(destination_filename),
                             timestamp=datetime.utcnow().timestamp()
                         )
 
@@ -89,6 +90,7 @@ class S3:
 
 
 if __name__ == '__main__':
+    backup = str(sys.argv[6]).lower()
     S3.upload(
         source={
             'prefix': sys.argv[1],
@@ -99,5 +101,8 @@ if __name__ == '__main__':
             'suffix': sys.argv[4],
             'bucket': sys.argv[5]
         },
-        backup=str(sys.argv[6]).lower() == 'true'
+        backup={
+            'enabled': backup == true or backup == 1 or backup == 'yes',
+            'prefix': sys.argv[7],
+            'suffix': sys.argv[8]
     )
