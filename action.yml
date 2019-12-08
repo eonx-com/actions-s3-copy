@@ -1,0 +1,53 @@
+name: 'eonx-com/actions-s3-copy'
+description: 'Copy files to AWS S3 buckets'
+author: 'Damian Sloane <damian.sloane@eonx.com>'
+
+branding:
+  icon: 'x'
+  color: 'red'
+
+inputs:
+  AWS_ACCESS_KEY_ID:
+    description: 'AWS credentials key ID for destination bucket'
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: 'AWS credentials secret for destination bucket'
+    required: true
+  AWS_REGION:
+    description: 'AWS region'
+    required: true
+  SOURCE_PREFIX:
+    description: 'Search filename prefix'
+    required: true
+  SOURCE_SUFFIX:
+    description: 'Search filename suffix'
+    required: true
+  DESTINATION_BUCKET:
+    description: 'Destination S3 bucket'
+    required: true
+  DESTINATION_PREFIX:
+    description: 'Destination filename prefix'
+    default: ''
+    required: false
+  DESTINATION_SUFFIX:
+    description: 'Destination filename suffix'
+    default: ''
+    required: false
+  BACKUP_EXISTING:
+    description: 'Boolean flag, if true will rename any existing file with current timestamp'
+    default: true
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.AWS_ACCESS_KEY_ID }}
+    - ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+    - ${{ inputs.AWS_REGION }}
+    - ${{ inputs.SOURCE_PREFIX }}
+    - ${{ inputs.SOURCE_SUFFIX }}
+    - ${{ inputs.DESTINATION_BUCKET }}
+    - ${{ inputs.DESTINATION_PREFIX }}
+    - ${{ inputs.DESTINATION_SUFFIX }}
+    - ${{ inputs.BACKUP_EXISTING }}
