@@ -16,7 +16,7 @@ pip install -r ./requirements.txt
 python s3-copy.py \
   "${SOURCE_PREFIX}" \
   "${SOURCE_SUFFIX}" \
-  "${DESTINATION_BUCKET}" \
   "${DESTINATION_PREFIX}" \
   "${DESTINATION_SUFFIX}" \
+  "${DESTINATION_BUCKET}" \
   "${BACKUP_EXISTING}"
