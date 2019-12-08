@@ -8,12 +8,12 @@ DESTINATION_SUFFIX=${4}
 DESTINATION_BUCKET=${5}
 BACKUP_EXISTING=${6}
 
-echo "Source Prefix: ${1}"
-echo "Source Suffix: ${2}"
-echo "Destination Prefix: ${3}"
-echo "Destination Suffix: ${4}"
-echo "Destination Bucket: ${5}"
-echo "Backup: ${6}"
+echo "Source Prefix: ${SOURCE_PREFIX}"
+echo "Source Suffix: ${SOURCE_SUFFIX}"
+echo "Destination Prefix: ${DESTINATION_PREFIX}"
+echo "Destination Suffix: ${DESTINATION_SUFFIX}"
+echo "Destination Bucket: ${DESTINATION_BUCKET}"
+echo "Backup Existing Files: ${BACKUP_EXISTING}"
 
 # Setup Python
 cd /opt/s3-copy/
