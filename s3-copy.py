@@ -80,8 +80,6 @@ class S3:
 
 
 if __name__ == '__main__':
-    print(sys.argv)
-
     S3.upload(
         source={
             'prefix': sys.argv[1],
