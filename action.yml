@@ -41,13 +41,14 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    AWS_ACCESS_KEY_ID: ${{ inputs.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+    AWS_DEFAULT_REGION: ${{ inputs.AWS_DEFAULT_REGION }}
   args:
-    - ${{ inputs.AWS_ACCESS_KEY_ID }}
-    - ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-    - ${{ inputs.AWS_REGION }}
     - ${{ inputs.SOURCE_PREFIX }}
     - ${{ inputs.SOURCE_SUFFIX }}
-    - ${{ inputs.DESTINATION_BUCKET }}
     - ${{ inputs.DESTINATION_PREFIX }}
     - ${{ inputs.DESTINATION_SUFFIX }}
+    - ${{ inputs.DESTINATION_BUCKET }}
     - ${{ inputs.BACKUP_EXISTING }}
