@@ -54,8 +54,8 @@ class S3:
                         }
 
                         backup_filename = '{destination_prefix}{destination_filename}{destination_suffix}.{timestamp}'.format(
-                            destination_filename=destination_filename,
                             destination_prefix=destination['prefix'],
+                            destination_filename=destination_filename,
                             destination_suffix=destination['suffix'],
                             timestamp=datetime.utcnow().timestamp()
                         )
@@ -71,7 +71,10 @@ class S3:
                             Key=backup_filename
                         )
                         # Delete original file
-                        S3.__client__().delete_object(original_file)
+                        S3.__client__().delete_object(
+                            Bucket=destination['bucket'],
+                            Key=destination_filename
+                        )
                         print('Backup Complete: {backup_filename}'.format(backup_filename=backup_filename))
                     except ClientError:
                         pass
