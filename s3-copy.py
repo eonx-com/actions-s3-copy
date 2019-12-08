@@ -78,16 +78,15 @@ class S3:
 
 
 if __name__ == '__main__':
-    print(sys.argv)
     S3.upload(
         source={
-            'prefix': sys.argv[0],
-            'suffix': sys.argv[1]
+            'prefix': sys.argv[1],
+            'suffix': sys.argv[2]
         },
         destination={
-            'prefix': sys.argv[2],
-            'suffix': sys.argv[3],
-            'bucket': sys.argv[4]
+            'prefix': sys.argv[3],
+            'suffix': sys.argv[4],
+            'bucket': sys.argv[5]
         },
-        backup=str(sys.argv[5]).lower() == 'true'
+        backup=str(sys.argv[6]).lower() == 'true'
     )
