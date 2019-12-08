@@ -25,7 +25,10 @@ class S3:
         """
         print('Uploading Files...')
 
-        for source_filename in glob('*', recursive=True):
+        base_path = os.environ['GITHUB_WORKSPACE']
+        print(base_path)
+        for source_filename in glob(base_path + '*', recursive=True):
+            print(source_filename)
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
                 destination_filename = '{prefix}{source_filename}{suffix}'.format(
                     prefix=destination['prefix'],
