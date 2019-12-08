@@ -25,8 +25,7 @@ class S3:
         """
         print('Uploading Files...')
 
-        glob_path = source['prefix'] + '*'
-        for source_filename in glob(glob_path, recursive=True):
+        for source_filename in glob('*', recursive=True):
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
                 destination_filename = '{prefix}{source_filename}{suffix}'.format(
                     prefix=destination['prefix'],
