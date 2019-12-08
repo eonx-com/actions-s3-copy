@@ -13,5 +13,6 @@ export DESTINATION_PREFIX=${7}
 export DESTINATION_SUFFIX=${8}
 export BACKUP_EXISTING=${9}
 
+cd /opt/s3-copy/
 pip install -r ./requirements.txt
 python s3-copy.py
