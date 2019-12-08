@@ -1,3 +1,5 @@
+from sys import argv
+
 import boto3
 import os
 
@@ -79,13 +81,13 @@ class S3:
 if __name__ == '__main__':
     S3.upload(
         source={
-            'prefix': os.environ['SOURCE_PREFIX'],
-            'suffix': os.environ['SOURCE_SUFFIX']
+            'prefix': argv[1],
+            'suffix': argv[2]
         },
         destination={
-            'prefix': os.environ['DESTINATION_PREFIX'],
-            'suffix': os.environ['DESTINATION_SUFFIX'],
-            'bucket': os.environ['DESTINATION_BUCKET']
+            'prefix': argv[3],
+            'suffix': argv[4],
+            'bucket': argv[5]
         },
-        backup=os.environ['BACKUP_EXISTING']
+        backup=str(argv[6]).lower() == 'true'
     )
