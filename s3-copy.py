@@ -35,7 +35,7 @@ class S3:
                     suffix=destination['suffix']
                 )
 
-                while destination_filename.contains('//'):
+                while '//' in destination_filename:
                     destination_filename = destination_filename.replace('//', '/')
 
                 # Display logging messages
