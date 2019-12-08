@@ -31,7 +31,7 @@ class S3:
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
                 destination_filename = '{prefix}{source_filename}{suffix}'.format(
                     prefix=destination['prefix'],
-                    source_filename=source_filename,
+                    source_filename=os.path.basename(source_filename),
                     suffix=destination['suffix']
                 )
 
