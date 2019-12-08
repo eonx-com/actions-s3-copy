@@ -53,8 +53,10 @@ class S3:
                             'Key': destination_filename
                         }
 
-                        backup_filename = '{destination_filename}.{timestamp}'.format(
+                        backup_filename = '{destination_prefix}{destination_filename}{destination_suffix}.{timestamp}'.format(
                             destination_filename=destination_filename,
+                            destination_prefix=destination['prefix'],
+                            destination_suffix=destination['suffix'],
                             timestamp=datetime.utcnow().timestamp()
                         )
 
