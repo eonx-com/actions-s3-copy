@@ -28,13 +28,15 @@ class S3:
 
         base_path = os.environ['GITHUB_WORKSPACE']
         for source_filename in glob(base_path + '/*', recursive=True):
-            print(source_filename)
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
                 destination_filename = '{prefix}{source_filename}{suffix}'.format(
                     prefix=destination['prefix'],
                     source_filename=source_filename,
                     suffix=destination['suffix']
                 )
+
+                while destination_filename.contains('//'):
+                    destination_filename = destination_filename.replace('//', '/')
 
                 # Display logging messages
                 print('\nUploading: {source_filename}'.format(source_filename=source_filename))
