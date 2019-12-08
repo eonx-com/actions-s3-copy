@@ -8,6 +8,13 @@ DESTINATION_SUFFIX=${4}
 DESTINATION_BUCKET=${5}
 BACKUP_EXISTING=${6}
 
+echo "Source Prefix: ${1}"
+echo "Source Suffix: ${2}"
+echo "Destination Prefix: ${3}"
+echo "Destination Suffix: ${4}"
+echo "Destination Bucket: ${5}"
+echo "Backup: ${6}"
+
 # Setup Python
 cd /opt/s3-copy/
 pip install -r ./requirements.txt
