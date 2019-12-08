@@ -79,7 +79,7 @@ class S3:
 
 if __name__ == '__main__':
     print(sys.argv)
-    's3-copy.py', '', '.yml', '/deployment', '', '', 'deployment.rewards.dev.eonx.com'
+
     S3.upload(
         source={
             'prefix': sys.argv[1],
