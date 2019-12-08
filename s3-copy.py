@@ -1,7 +1,6 @@
-from sys import argv
-
 import boto3
 import os
+import sys
 
 from botocore.exceptions import ClientError
 from datetime import datetime
@@ -79,15 +78,16 @@ class S3:
 
 
 if __name__ == '__main__':
+    print(sys.argv)
     S3.upload(
         source={
-            'prefix': argv[1],
-            'suffix': argv[2]
+            'prefix': sys.argv[0],
+            'suffix': sys.argv[1]
         },
         destination={
-            'prefix': argv[3],
-            'suffix': argv[4],
-            'bucket': argv[5]
+            'prefix': sys.argv[2],
+            'suffix': sys.argv[3],
+            'bucket': sys.argv[4]
         },
-        backup=str(argv[6]).lower() == 'true'
+        backup=str(sys.argv[5]).lower() == 'true'
     )
