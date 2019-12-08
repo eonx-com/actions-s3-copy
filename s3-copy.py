@@ -102,7 +102,8 @@ if __name__ == '__main__':
             'bucket': sys.argv[5]
         },
         backup={
-            'enabled': backup == true or backup == 1 or backup == 'yes',
+            'enabled': backup is True or backup == 1 or backup == 'yes',
             'prefix': sys.argv[7],
             'suffix': sys.argv[8]
+        }
     )
