@@ -52,12 +52,17 @@ class S3:
                             'Bucket': destination['bucket'],
                             'Key': destination_filename
                         }
+
                         backup_filename = '{destination_filename}.{timestamp}'.format(
                             destination_filename=destination_filename,
                             timestamp=datetime.utcnow().timestamp()
                         )
-                        print('Backing Up Existing File...')
+
+                        while '//' in backup_filename:
+                            backup_filename = backup_filename.replace('//', '/')
+
                         # Copy to new filename
+                        print('Backing Up Existing File...')
                         S3.__client__().copy_object(
                             CopySource=original_file,
                             Bucket=destination['bucket'],
