@@ -29,62 +29,63 @@ class S3:
         base_path = os.environ['GITHUB_WORKSPACE']
         for source_filename in glob(base_path + '/*', recursive=True):
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
-                destination_filename = '{prefix}{source_filename}{suffix}'.format(
-                    prefix=destination['prefix'],
-                    source_filename=os.path.basename(source_filename),
-                    suffix=destination['suffix']
-                )
+                if not source['prefix'] or str(source_filename).startswith(source['prefix']):
+                    destination_filename = '{prefix}{source_filename}{suffix}'.format(
+                        prefix=destination['prefix'],
+                        source_filename=os.path.basename(source_filename),
+                        suffix=destination['suffix']
+                    )
 
-                while '//' in destination_filename:
-                    destination_filename = destination_filename.replace('//', '/')
+                    while '//' in destination_filename:
+                        destination_filename = destination_filename.replace('//', '/')
 
-                # Display logging messages
-                print('\nUploading: {source_filename}'.format(source_filename=source_filename))
-                print('Destination Bucket: {bucket}'.format(bucket=destination['bucket']))
-                print('Destination Filename: {destination_filename}'.format(destination_filename=destination_filename))
+                    # Display logging messages
+                    print('\nUploading: {source_filename}'.format(source_filename=source_filename))
+                    print('Destination Bucket: {bucket}'.format(bucket=destination['bucket']))
+                    print('Destination Filename: {destination_filename}'.format(destination_filename=destination_filename))
 
-                # If backup is enabled check if file exists
-                if backup['enabled'] is True:
-                    try:
-                        S3.__client__().head_object(Bucket=destination['bucket'], Key=destination_filename)
-                        # If this does not generate an exception- the file already exists
-                        original_file = {
-                            'Bucket': destination['bucket'],
-                            'Key': destination_filename
-                        }
+                    # If backup is enabled check if file exists
+                    if backup['enabled'] is True:
+                        try:
+                            S3.__client__().head_object(Bucket=destination['bucket'], Key=destination_filename)
+                            # If this does not generate an exception- the file already exists
+                            original_file = {
+                                'Bucket': destination['bucket'],
+                                'Key': destination_filename
+                            }
 
-                        backup_filename = '{backup_prefix}{filename}{backup_suffix}.{timestamp}'.format(
-                            backup_prefix=backup['prefix'],
-                            backup_suffix=backup['suffix'],
-                            filename=os.path.basename(destination_filename),
-                            timestamp=datetime.utcnow().timestamp()
-                        )
+                            backup_filename = '{backup_prefix}{filename}{backup_suffix}.{timestamp}'.format(
+                                backup_prefix=backup['prefix'],
+                                backup_suffix=backup['suffix'],
+                                filename=os.path.basename(destination_filename),
+                                timestamp=datetime.utcnow().timestamp()
+                            )
 
-                        while '//' in backup_filename:
-                            backup_filename = backup_filename.replace('//', '/')
+                            while '//' in backup_filename:
+                                backup_filename = backup_filename.replace('//', '/')
 
-                        # Copy to new filename
-                        print('Backing Up Existing File...')
-                        S3.__client__().copy_object(
-                            CopySource=original_file,
-                            Bucket=destination['bucket'],
-                            Key=backup_filename
-                        )
-                        # Delete original file
-                        S3.__client__().delete_object(
-                            Bucket=destination['bucket'],
-                            Key=destination_filename
-                        )
-                        print('Backup Complete: {backup_filename}'.format(backup_filename=backup_filename))
-                    except ClientError:
-                        pass
+                            # Copy to new filename
+                            print('Backing Up Existing File...')
+                            S3.__client__().copy_object(
+                                CopySource=original_file,
+                                Bucket=destination['bucket'],
+                                Key=backup_filename
+                            )
+                            # Delete original file
+                            S3.__client__().delete_object(
+                                Bucket=destination['bucket'],
+                                Key=destination_filename
+                            )
+                            print('Backup Complete: {backup_filename}'.format(backup_filename=backup_filename))
+                        except ClientError:
+                            pass
 
-                # Upload the new file
-                S3.__client__().upload_file(
-                    Bucket=destination['bucket'],
-                    Filename=source_filename,
-                    Key=destination_filename
-                )
+                    # Upload the new file
+                    S3.__client__().upload_file(
+                        Bucket=destination['bucket'],
+                        Filename=source_filename,
+                        Key=destination_filename
+                    )
 
         print('Upload Complete')
 
