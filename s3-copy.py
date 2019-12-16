@@ -27,7 +27,7 @@ class S3:
         print('Uploading Files...')
 
         timestamp = ''
-        if destination['timestamp'] is True:
+        if str(destination['timestamp']).lower() == 'true':
             timestamp = '.{timestamp}'.format(timestamp=datetime.utcnow().timestamp())
 
         base_path = os.environ['GITHUB_WORKSPACE']
