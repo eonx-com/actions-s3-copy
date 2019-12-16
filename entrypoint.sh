@@ -9,6 +9,7 @@ DESTINATION_BUCKET=${5}
 BACKUP_EXISTING=${6}
 BACKUP_PREFIX=${7}
 BACKUP_SUFFIX=${8}
+TIMESTAMP=${9}
 
 echo "Source Prefix: ${SOURCE_PREFIX}"
 echo "Source Suffix: ${SOURCE_SUFFIX}"
@@ -18,6 +19,7 @@ echo "Destination Bucket: ${DESTINATION_BUCKET}"
 echo "Backup Existing Files: ${BACKUP_EXISTING}"
 echo "Backup File Prefix: ${BACKUP_PREFIX}"
 echo "Backup File Suffix: ${BACKUP_SUFFIX}"
+echo "Timestamp: ${TIMESTAMP}"
 
 # Setup Python
 cd /opt/s3-copy/
@@ -33,3 +35,4 @@ python s3-copy.py \
   "${BACKUP_EXISTING}" \
   "${BACKUP_PREFIX}" \
   "${BACKUP_SUFFIX}" \
+  "${TIMESTAMP}" \

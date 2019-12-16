@@ -100,7 +100,8 @@ if __name__ == '__main__':
         destination={
             'prefix': sys.argv[3],
             'suffix': sys.argv[4],
-            'bucket': sys.argv[5]
+            'bucket': sys.argv[5],
+            'timestamp': sys.argv[9]
         },
         backup={
             'enabled': backup == 'true' or backup == 1 or backup == 'yes',
