@@ -33,18 +33,10 @@ inputs:
     description: 'Destination filename suffix'
     default: ''
     required: false
-  BACKUP_EXISTING:
-    description: 'Boolean flag, if true will rename any existing file with current timestamp'
-    default: true
+  TIMESTAMP:
+    description: 'Boolean flag, if true will append timestamp to end of filename'
+    default: 'false'
     required: true
-  BACKUP_PREFIX:
-    description: 'Backup filename prefix'
-    default: ''
-    required: false
-  BACKUP_SUFFIX:
-    description: 'Backup filename suffix'
-    default: ''
-    required: false
 
 runs:
   using: 'docker'
@@ -59,6 +51,4 @@ runs:
     - ${{ inputs.DESTINATION_PREFIX }}
     - ${{ inputs.DESTINATION_SUFFIX }}
     - ${{ inputs.DESTINATION_BUCKET }}
-    - ${{ inputs.BACKUP_EXISTING }}
-    - ${{ inputs.BACKUP_PREFIX }}
-    - ${{ inputs.BACKUP_SUFFIX }}
+    - ${{ inputs.TIMESTAMP }}
