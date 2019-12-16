@@ -26,14 +26,19 @@ class S3:
         """
         print('Uploading Files...')
 
+        timestamp = ''
+        if destination['timestamp'] is True:
+            timestamp = '.{timestamp}'.format(timestamp=datetime.utcnow().timestamp())
+
         base_path = os.environ['GITHUB_WORKSPACE']
         for source_filename in glob(base_path + '/*', recursive=True):
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
                 if not source['prefix'] or str(os.path.basename(source_filename)).startswith(source['prefix']):
-                    destination_filename = '{prefix}{source_filename}{suffix}'.format(
+                    destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
                         prefix=destination['prefix'],
                         source_filename=os.path.basename(source_filename),
-                        suffix=destination['suffix']
+                        suffix=destination['suffix'],
+                        timestamp=timestamp
                     )
 
                     while '//' in destination_filename:
