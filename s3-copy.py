@@ -31,37 +31,39 @@ class S3:
             timestamp = '.{timestamp}'.format(timestamp=datetime.utcnow().timestamp())
 
         base_path = os.environ['GITHUB_WORKSPACE']
-        for source_filename in glob(base_path + '*', recursive=True):
-            print(source_filename)
-            filename = source_filename[len(base_path):]
-            print('checking suffix: {s}'.format(s=source['suffix']))
-            print(filename)
-            if not source['suffix'] or filename.endswith(source['suffix']):
+        for root, dirs, files in os.walk(base_path, topdown=False):
+            for name in files:
+                source_filename = os.path.join(root, name)
 
-                print('checking prefix: {s}'.format(s=source['prefix']))
+                filename = source_filename[len(base_path):]
+                print('checking suffix: {s}'.format(s=source['suffix']))
                 print(filename)
-                if not source['prefix'] or filename.startswith(source['prefix']):
-                    destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
-                        prefix=destination['prefix'],
-                        source_filename=filename_base,
-                        suffix=destination['suffix'],
-                        timestamp=timestamp
-                    )
+                if not source['suffix'] or filename.endswith(source['suffix']):
 
-                    while '//' in destination_filename:
-                        destination_filename = destination_filename.replace('//', '/')
+                    print('checking prefix: {s}'.format(s=source['prefix']))
+                    print(filename)
+                    if not source['prefix'] or filename.startswith(source['prefix']):
+                        destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
+                            prefix=destination['prefix'],
+                            source_filename=filename_base,
+                            suffix=destination['suffix'],
+                            timestamp=timestamp
+                        )
 
-                    # Display logging messages
-                    print('\nUploading: {source_filename}'.format(source_filename=source_filename))
-                    print('Destination Bucket: {bucket}'.format(bucket=destination['bucket']))
-                    print('Destination Filename: {destination_filename}'.format(destination_filename=destination_filename))
+                        while '//' in destination_filename:
+                            destination_filename = destination_filename.replace('//', '/')
 
-                    # Upload the new file
-                    S3.__client__().upload_file(
-                        Bucket=destination['bucket'],
-                        Filename=source_filename,
-                        Key=destination_filename
-                    )
+                        # Display logging messages
+                        print('\nUploading: {source_filename}'.format(source_filename=source_filename))
+                        print('Destination Bucket: {bucket}'.format(bucket=destination['bucket']))
+                        print('Destination Filename: {destination_filename}'.format(destination_filename=destination_filename))
+
+                        # Upload the new file
+                        S3.__client__().upload_file(
+                            Bucket=destination['bucket'],
+                            Filename=source_filename,
+                            Key=destination_filename
+                        )
 
         print('Upload Complete')
 
