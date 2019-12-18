@@ -31,7 +31,7 @@ class S3:
             timestamp = '.{timestamp}'.format(timestamp=datetime.utcnow().timestamp())
 
         base_path = os.environ['GITHUB_WORKSPACE']
-        for source_filename in glob(base_path + '/*', recursive=True):
+        for source_filename in glob(base_path + '*', recursive=True):
             print(source_filename)
             filename = source_filename[len(base_path):]
             print('checking suffix: {s}'.format(s=source['suffix']))
