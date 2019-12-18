@@ -45,7 +45,7 @@ class S3:
                     if not source['prefix'] or filename.startswith(source['prefix']):
                         destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
                             prefix=destination['prefix'],
-                            source_filename=filename_base,
+                            source_filename=filename,
                             suffix=destination['suffix'],
                             timestamp=timestamp
                         )
