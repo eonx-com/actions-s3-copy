@@ -34,8 +34,11 @@ class S3:
         for source_filename in glob(base_path + '/*', recursive=True):
             filename = source_filename[len(base_path):]
             print('checking suffix: {s}'.format(s=source['suffix']))
+            print(filename)
             if not source['suffix'] or filename.endswith(source['suffix']):
+
                 print('checking prefix: {s}'.format(s=source['prefix']))
+                print(filename)
                 if not source['prefix'] or filename.startswith(source['prefix']):
                     destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
                         prefix=destination['prefix'],
