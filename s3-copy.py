@@ -32,9 +32,11 @@ class S3:
 
         base_path = os.environ['GITHUB_WORKSPACE']
         for source_filename in glob(base_path + '/*', recursive=True):
+            filename = source_filename[len(base_path):]
+            filename_base = os.path.basename(filename)
+            print(filename)
+            print(filename_base)
             if not source['suffix'] or str(source_filename).endswith(source['suffix']):
-                filename = source_filename[len(base_path):]
-                filename_base = os.path.basename(filename)
                 if not source['prefix'] or str(filename_base).startswith(source['prefix']):
                     destination_filename = '{prefix}{source_filename}{suffix}{timestamp}'.format(
                         prefix=destination['prefix'],
