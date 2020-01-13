@@ -32,5 +32,5 @@ jobs:
           DESTINATION_PREFIX: 'infrastructure/'
           DESTINATION_SUFFIX: ''
           DESTINATION_BUCKET: 'deployment.infrastructure.dev.company.com'
-          BACKUP: 'true'
+          TIMESTAMP: 'false'
 ```
